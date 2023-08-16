@@ -1,0 +1,3 @@
+name: Tstory upload actions
+on:
+   workflow_dispatch:
