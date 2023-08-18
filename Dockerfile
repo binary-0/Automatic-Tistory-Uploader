@@ -8,6 +8,6 @@ RUN pip install -r /requirements.txt
 
 COPY . .
 
-RUN chmod +x ./main.py
+RUN chmod +x ./src/main.py
 
 CMD [ "python3", "/app/src/main.py" ]
