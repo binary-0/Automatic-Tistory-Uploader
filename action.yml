@@ -1,0 +1,16 @@
+name: "Automatic-Tistory-Uploader"
+description: "Automatically post on Tistory"
+inputs:
+  Accesstoken:
+    description: "Tstory Access token"
+    required: true
+    default: ''
+
+  BlogName:
+    description: "Name of the Tstroy Blog"
+    required: true
+    default: ''
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
