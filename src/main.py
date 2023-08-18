@@ -12,8 +12,8 @@ import markdown
 blogAccessToken = os.environ["INPUT_ACCESSTOKEN"]
 blogName = os.environ["INPUT_BLOGNAME"]
 Repo_Name = os.environ['GITHUB_REPOSITORY']
-repoName = str(Repo_Name).split('/')[0]
-repoOwner = str(Repo_Name).split('/')[1]
+repoOwner = str(Repo_Name).split('/')[0]
+repoName = str(Repo_Name).split('/')[1]
 gitAccessToken = os.environ["INPUT_GITHUBTOKEN"]
 
 # arguments = sys.argv
