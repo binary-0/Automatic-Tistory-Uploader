@@ -3,7 +3,6 @@ import sys
 import json
 import os
 import readRepoCommits
-from git import Repo
 import markdown
 
 #System arguments
