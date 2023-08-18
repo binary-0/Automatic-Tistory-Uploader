@@ -1,15 +1,16 @@
 import requests
 import sys
-from bs4 import BeautifulSoup
 import json
+import os
 
 #System arguments
 #python {File.py} {access token} {blog name} {repository name}
-arguments = sys.argv
+#arguments = sys.argv
 
-access_token = arguments[1]
-blogName = arguments[2]
-repoName = arguments[3]
+access_token = os.environ["INPUT_ACCESSTOKEN"]
+blogName = os.environ["INPUT_BLOGNAME"]
+repoName = os.environ['GITHUB_REPOSITORY']
+repoName = str(repoName)
 
 def post_blog():
     base_url = 'https://www.tistory.com/apis/post/write'
@@ -30,8 +31,7 @@ def post_blog():
     }
 
     result = requests.post(base_url, params=parameters)
-    result = BeautifulSoup(result.text)
-    print(result.prettify())
+    print(result)
 
 def edit_post(postID):
     base_url = 'https://www.tistory.com/apis/post/modify'
@@ -53,8 +53,7 @@ def edit_post(postID):
     }
 
     result = requests.post(base_url, params=parameters)
-    result = BeautifulSoup(result.text)
-    print(result.prettify())
+    print(result)
 
 def check_postExist():
     base_url = 'https://www.tistory.com/apis/post/list'
