@@ -2,35 +2,39 @@ import requests
 import sys
 import json
 import os
+
 import readRepoCommits
-from git import Repo
+import getReadmeContents
 
-#System arguments
-#python {File.py} {access token} {blog name} {repository name}
-#arguments = sys.argv
+# System arguments
+# For local test purpose
+# python {File.py} {access token} {blog name} {repository name}
+# arguments = sys.argv
+# blogAccessToken = arguments[1]
+# blogName = arguments[2]
+# repoName = arguments[3]
+# repoOwner = arguments[4]
+# gitAccessToken = arguments[5]
 
-# access_token = os.environ["INPUT_ACCESSTOKEN"]
-# blogName = os.environ["INPUT_BLOGNAME"]
-# repoName = os.environ['GITHUB_REPOSITORY']
-# repoName = str(repoName)
+blogAccessToken = os.environ["INPUT_ACCESSTOKEN"]
+blogName = os.environ["INPUT_BLOGNAME"]
+Repo_Name = os.environ['GITHUB_REPOSITORY']
+repoOwner = str(Repo_Name).split('/')[0]
+repoName = str(Repo_Name).split('/')[1]
+gitAccessToken = os.environ["INPUT_GITHUBTOKEN"]
 
-arguments = sys.argv
-blogAccessToken = arguments[1]
-blogName = arguments[2]
-repoName = arguments[3]
-repoOwner = arguments[4]
-gitAccessToken = arguments[5]
 
 global contents
 contents = ''
 
 def contents_generator():
-    #ReadMe 읽고 맨 위에 쓰고
     global contents
+    
+    contents += getReadmeContents.convert_md_to_html(getReadmeContents.get_readme_from_github(repoOwner , repoName))
     
     commits = readRepoCommits.get_commits(repoOwner, repoName, gitAccessToken)
     commitCounter = 1
-
+    
     for commit in commits:
         if commit["commit"]["message"] != '':
             contents += '<p>'
@@ -118,5 +122,5 @@ def check_postExist():
             post_blog()
             break
             
-#post_blog()
-check_postExist()
+if __name__ == "__main__":      
+    check_postExist()

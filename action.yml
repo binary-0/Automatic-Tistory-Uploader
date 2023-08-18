@@ -10,7 +10,12 @@ inputs:
     description: "Name of the Tstroy Blog"
     required: true
     default: ''
-
+    
+  GithubToken:
+    description: "Secret GITHUB_TOKEN"
+    required: true
+    default: ''
+    
 runs:
   using: 'docker'
   image: 'Dockerfile'
