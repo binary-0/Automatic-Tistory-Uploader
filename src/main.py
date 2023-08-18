@@ -8,16 +8,15 @@ import readRepoCommits
 #python {File.py} {access token} {blog name} {repository name}
 #arguments = sys.argv
 
-# access_token = os.environ["INPUT_ACCESSTOKEN"]
-# blogName = os.environ["INPUT_BLOGNAME"]
-# repoName = os.environ['GITHUB_REPOSITORY']
-# repoName = str(repoName)
+access_token = os.environ["INPUT_ACCESSTOKEN"]
+blogName = os.environ["INPUT_BLOGNAME"]
+repoName = os.environ['GITHUB_REPOSITORY']
+repoName = str(repoName)
 
-arguments = sys.argv
-
-access_token = arguments[1]
-blogName = arguments[2]
-repoName = arguments[3]
+# arguments = sys.argv
+# access_token = arguments[1]
+# blogName = arguments[2]
+# repoName = arguments[3]
 
 global contents
 contents = ''
