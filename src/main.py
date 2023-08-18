@@ -3,20 +3,23 @@ import sys
 import json
 import os
 import readRepoCommits
+from git import Repo
 
 #System arguments
 #python {File.py} {access token} {blog name} {repository name}
 #arguments = sys.argv
 
-access_token = os.environ["INPUT_ACCESSTOKEN"]
-blogName = os.environ["INPUT_BLOGNAME"]
-repoName = os.environ['GITHUB_REPOSITORY']
-repoName = str(repoName)
+# access_token = os.environ["INPUT_ACCESSTOKEN"]
+# blogName = os.environ["INPUT_BLOGNAME"]
+# repoName = os.environ['GITHUB_REPOSITORY']
+# repoName = str(repoName)
 
-# arguments = sys.argv
-# access_token = arguments[1]
-# blogName = arguments[2]
-# repoName = arguments[3]
+arguments = sys.argv
+blogAccessToken = arguments[1]
+blogName = arguments[2]
+repoName = arguments[3]
+repoOwner = arguments[4]
+gitAccessToken = arguments[5]
 
 global contents
 contents = ''
@@ -24,17 +27,17 @@ contents = ''
 def contents_generator():
     #ReadMe 읽고 맨 위에 쓰고
     global contents
-
-    commits = readRepoCommits.get_commits()
+    
+    commits = readRepoCommits.get_commits(repoOwner, repoName, gitAccessToken)
     commitCounter = 1
 
     for commit in commits:
-        if commit["message"] != '':
+        if commit["commit"]["message"] != '':
             contents += '<p>'
             contents += 'Commit message No. '
             contents += str(commitCounter)
             contents += ': '
-            contents += commit["message"]
+            contents += commit["commit"]["message"]
             contents += '</p>'
             commitCounter = commitCounter + 1
 
@@ -43,7 +46,7 @@ def post_blog():
 
     base_url = 'https://www.tistory.com/apis/post/write'
     parameters = {
-        'access_token': access_token,
+        'access_token': blogAccessToken,
         'output': 'json',
         'blogName': blogName,
         'title': repoName,
@@ -62,7 +65,7 @@ def edit_post(postID):
 
     base_url = 'https://www.tistory.com/apis/post/modify'
     parameters = {
-        'access_token': access_token,
+        'access_token': blogAccessToken,
         'output': 'json',
         'blogName': blogName,
         'postId': postID,
@@ -86,7 +89,7 @@ def check_postExist():
 
     for i in range(1, 100):
         parameters = {
-            'access_token': access_token,
+            'access_token': blogAccessToken,
             'output': 'json',
             'blogName': blogName,
             'page': i
