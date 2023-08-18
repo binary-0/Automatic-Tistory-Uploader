@@ -10,4 +10,4 @@ COPY . .
 
 RUN chmod +x ./main.py
 
-CMD [ "python3", "/app/main.py" ]
+CMD [ "python3", "/app/src/main.py" ]
