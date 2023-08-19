@@ -44,7 +44,22 @@ In other words for newbies of GitHub Actions: Note that the `GITHUB_TOKEN` is **
 1. Create a folder named .github and create a workflows folder inside it, if it doesn't exist.
 2. Create a new file named tistory-blog-action.yml with the following contents inside the workflows folder:
 ```
------YML File here-------
+
+name: Tistory-Uploader
+on:
+   push:
+            
+jobs:
+   Upload-Action:
+      runs-on: ubuntu-latest
+      steps:       
+         - name: Automatic-Tistory-Uploader
+           uses: binary-0/Automatic-Tistory-Uploader@v1.0.0
+           with:
+              Accesstoken: "${{ secrets.BLOG_ACCESS_TOKEN }}"
+              BlogName: "Your Blog Name"
+              GithubToken: "${{ secrets.GITHUB_TOKEN }}"
+
 ```
 3. Replace the above 'BlogName' with your own blog name. Tokens were processed on GitHub secret variable earlier, so you don't have to modify them.
 4. You can initiate the process by either **git push** and allowing it to execute automatically, or you have the option to manually activate it for an immediate outcome using workflow_dispatch event.
@@ -56,9 +71,9 @@ In other words for newbies of GitHub Actions: Note that the `GITHUB_TOKEN` is **
 |`Accesstoken`|Tstory Access token| | O |
 |`BlogName`|Name of the Tstroy Blog|| O |
 |`GithubToken`|Secret GITHUB_TOKEN|| O |
-|~~`visibility`~~|~~Visibility of the Blog Post~~|`3`|X|
-|~~`category`~~|~~Category ID~~|`0`| X|
-|~~`acceptComment`~~|~~Allow comments to be written to post~~|`1`| X |
+|`visibility`|Visibility of the Blog Post|`3`|X|
+|`category`|Category ID|`0`| X|
+|`acceptComment`|Allow comments to be written to post|`1`| X |
 > **Note**: visibility, category, and acceptComment inputs are currently only available as default values and will be updated later
 
 > Click [here](https://tistory.github.io/document-tistory-apis/apis/v1/post/write.html) to learn more about these inputs
