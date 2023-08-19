@@ -2,7 +2,7 @@ import markdown
 import requests
 
 def convert_md_to_html(md_content):
-    html_content = markdown.markdown(md_content)
+    html_content = markdown.markdown(md_content, extensions=['markdown.extensions.tables'])
     return html_content
 
 def get_readme_from_github(owner, repo):
