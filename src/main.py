@@ -52,22 +52,23 @@ def contents_generator():
 
     contents += '<hr>'
     contents += '<h2 id="Commithistory" style="padding: 5px; border-left: solid 20px #ffc6ff; border-bottom: solid 10px #ffc6ff; font-size: 25px; font-weight: bold;" data-ke-size="size26">Commit History</h2>'
-
+    contents += '<ul>'
     commits = readRepoCommits.get_commits(repoOwner, repoName, gitAccessToken)
     commitCounter = 1
     
     for commit in commits:
         if commit["commit"]["message"] != '':
-            contents += '<p data-ke-size="size14"><a href = "'
+            contents += '<li data-ke-size="size14"><a href = "'
             contents += commit["html_url"]
             contents += '">'
             contents += 'No. '
             contents += str(commitCounter)
             contents += ': '
             contents += commit["commit"]["message"]
-            contents += '</a></p>'
+            contents += '</a></li>'
             commitCounter = commitCounter + 1
-
+        
+    contents += '</ul>'
 def post_blog():
     global contents
 
