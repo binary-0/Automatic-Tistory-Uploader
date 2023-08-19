@@ -2,9 +2,11 @@ import requests
 import sys
 import json
 import os
+import markdown
 
 import readRepoCommits
 import getReadmeContents
+import summarizeReadme
 
 # System arguments
 # For local test purpose
@@ -30,8 +32,13 @@ contents = ''
 def contents_generator():
     global contents
     
-    contents += getReadmeContents.convert_md_to_html(getReadmeContents.get_readme_from_github(repoOwner , repoName))
-    
+    ReadmeMDFile = getReadmeContents.get_readme_from_github(repoOwner, repoName)
+    MDfile_plainText = summarizeReadme.process_markdown(ReadmeMDFile)
+    summarizedReadmeText = summarizeReadme.generate_summary(MDfile_plainText)
+    summarizedReadmeMD = markdown.markdown(summarizedReadmeText)
+    contents += getReadmeContents.convert_md_to_html(summarizedReadmeMD)
+    #print(contents)
+
     commits = readRepoCommits.get_commits(repoOwner, repoName, gitAccessToken)
     commitCounter = 1
     
@@ -61,7 +68,8 @@ def post_blog():
         'acceptComment': '1'
     }
 
-    result = requests.post(base_url, params=parameters)
+    result = requests.post(base_url, data=parameters)
+    print('####Edit Result Log####')
     print(result)
 
 def edit_post(postID):
@@ -81,7 +89,8 @@ def edit_post(postID):
         'acceptComment': '1'
     }
 
-    result = requests.post(base_url, params=parameters)
+    result = requests.post(base_url, data=parameters)
+    print('####Edit Result Log####')
     print(result)
 
 def check_postExist():
