@@ -26,7 +26,7 @@ repoOwner = str(Repo_Name).split('/')[0]
 repoName = str(Repo_Name).split('/')[1]
 gitAccessToken = os.environ["INPUT_GITHUBTOKEN"]
 
-postTitleByRepoName = '깃허브 리포지토리 요약: ' + repoName
+postTitleByRepoName = '[깃허브 리포지토리 요약] ' + repoName
 
 global contents
 contents = ''
@@ -58,7 +58,7 @@ def contents_generator():
     contents += '<h2 id="Commithistory" style="padding: 5px; border-left: solid 20px #ffc6ff; border-bottom: solid 10px #ffc6ff; font-size: 25px; font-weight: bold;" data-ke-size="size26">Commit History</h2>'
     contents += '<ul>'
     commits = readRepoCommits.get_commits(repoOwner, repoName, gitAccessToken)
-    commitCounter = 1
+    commitLength = len(commits)
     
     for commit in commits:
         if commit["commit"]["message"] != '':
@@ -66,13 +66,14 @@ def contents_generator():
             contents += commit["html_url"]
             contents += '">'
             contents += 'No. '
-            contents += str(commitCounter)
+            contents += str(commitLength)
             contents += ': '
             contents += commit["commit"]["message"]
             contents += '</a></li>'
-            commitCounter = commitCounter + 1
+        commitLength = commitLength - 1
         
     contents += '</ul>'
+
 def post_blog():
     global contents
 
