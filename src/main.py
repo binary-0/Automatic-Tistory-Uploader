@@ -38,7 +38,11 @@ def contents_generator():
     MDfile_plainText = summarizeReadme.process_markdown(ReadmeMDFile)
     summarizedReadmeText = summarizeReadme.generate_summary(MDfile_plainText)
     summarizedReadmeMD = markdown.markdown(summarizedReadmeText)
-
+    #Title 
+    contents += '<h1 style="border-left: 20px solid #bdb2ff; border-right: 20px solid #bdb2ff; background-color: #f8f9fa; padding: 15px; text-align: center; font-weight: bold;" data-ke-size="size26">'
+    contents += repoName
+    contents += '</h1>'
+    
     #Summarized Readme.md
     contents += getReadmeContents.convert_md_to_html(summarizedReadmeMD)
 
@@ -50,16 +54,14 @@ def contents_generator():
     
     for commit in commits:
         if commit["commit"]["message"] != '':
-            contents += '<a href = "'
+            contents += '<p data-ke-size="size14"><a href = "'
             contents += commit["html_url"]
             contents += '">'
             contents += 'No. '
             contents += str(commitCounter)
             contents += ': '
             contents += commit["commit"]["message"]
-            contents += '</a>'
-            contents += '<br/>'
-            contents += '<br/>'
+            contents += '</a></p>'
             commitCounter = commitCounter + 1
 
 def post_blog():
@@ -126,6 +128,7 @@ def check_postExist():
             for item in result["tistory"]["item"]["posts"]:
                 if item["title"] == postTitleByRepoName:
                     print('Repository post already exists -> Edit')
+                    #print existing URL
                     repoExist = True
                     postID = item["id"]
                     break
