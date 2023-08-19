@@ -11,6 +11,9 @@
 
 - It also empowers users to establish GitHub Events for the automatic uploading of posts to Tistory. (ex. Push, Pull requests ...)
 
+## Post Example
+![PostExample](https://github.com/binary-0/Automatic-Tistory-Uploader/assets/50437138/cbb15c74-dca5-403a-b332-0f94fbd252f1)
+
 ## How To Use
 We used Tistory Open API in this project. To find more information of the API, click on the [Link](https://tistory.github.io/document-tistory-apis/).
 
