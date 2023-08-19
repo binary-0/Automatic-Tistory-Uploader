@@ -44,7 +44,7 @@ def contents_generator():
     contents += '</h1>'
     
     #Table content
-    contents += '<blockquote data-ke-style="style3">목차<br /><a href="#Readme">1. ReadMe. md</a><br /><a href="#Commithistory">2. Commit History</a></blockquote>'
+    contents += '<blockquote data-ke-style="style3"><b>목차</b><br /><a href="#Readme">1. ReadMe. md</a><br /><a href="#Commithistory">2. Commit History</a></blockquote>'
     
     #Summarized Readme.md
     contents += '<h2 id="Readme" style="padding: 5px; border-left: solid 20px #ffc6ff; border-bottom: solid 10px #ffc6ff; font-size: 25px; font-weight: bold;" data-ke-size="size26">ReadMe.md</h2>'
