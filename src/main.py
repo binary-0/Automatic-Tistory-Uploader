@@ -38,28 +38,34 @@ def contents_generator():
     MDfile_plainText = summarizeReadme.process_markdown(ReadmeMDFile)
     summarizedReadmeText = summarizeReadme.generate_summary(MDfile_plainText)
     summarizedReadmeMD = markdown.markdown(summarizedReadmeText)
-
+    #Title 
+    contents += '<h1 style="border-left: 20px solid #bdb2ff; border-right: 20px solid #bdb2ff; background-color: #f8f9fa; padding: 15px; text-align: center; font-weight: bold;" data-ke-size="size26">'
+    contents += repoName
+    contents += '</h1>'
+    
+    #Table content
+    contents += '<blockquote data-ke-style="style3">목차<br /><a href="#Readme">1. ReadMe. md</a><br /><a href="#Commithistory">2. Commit History</a></blockquote>'
+    
     #Summarized Readme.md
+    contents += '<h2 id="Readme" style="padding: 5px; border-left: solid 20px #ffc6ff; border-bottom: solid 10px #ffc6ff; font-size: 25px; font-weight: bold;" data-ke-size="size26">ReadMe.md</h2>'
     contents += getReadmeContents.convert_md_to_html(summarizedReadmeMD)
 
     contents += '<hr>'
-    contents += '<h1>Commit History</h1>'
+    contents += '<h2 id="Commithistory" style="padding: 5px; border-left: solid 20px #ffc6ff; border-bottom: solid 10px #ffc6ff; font-size: 25px; font-weight: bold;" data-ke-size="size26">Commit History</h2>'
 
     commits = readRepoCommits.get_commits(repoOwner, repoName, gitAccessToken)
     commitCounter = 1
     
     for commit in commits:
         if commit["commit"]["message"] != '':
-            contents += '<a href = "'
+            contents += '<p data-ke-size="size14"><a href = "'
             contents += commit["html_url"]
             contents += '">'
             contents += 'No. '
             contents += str(commitCounter)
             contents += ': '
             contents += commit["commit"]["message"]
-            contents += '</a>'
-            contents += '<br/>'
-            contents += '<br/>'
+            contents += '</a></p>'
             commitCounter = commitCounter + 1
 
 def post_blog():
@@ -126,6 +132,7 @@ def check_postExist():
             for item in result["tistory"]["item"]["posts"]:
                 if item["title"] == postTitleByRepoName:
                     print('Repository post already exists -> Edit')
+                    #print existing URL
                     repoExist = True
                     postID = item["id"]
                     break
