@@ -1,5 +1,8 @@
 name: "Automatic-Tistory-Uploader"
 description: "Automatically post on Tistory"
+branding:
+  icon: 'align-center'  
+  color: 'black'
 inputs:
   Accesstoken:
     description: "Tstory Access token"
