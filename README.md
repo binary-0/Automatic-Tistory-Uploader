@@ -49,7 +49,7 @@ In other words for newbies of GitHub Actions: Note that the `GITHUB_TOKEN` is **
 3. Replace the above 'BlogName' with your own blog name. Tokens were processed on GitHub secret variable earlier, so you don't have to modify them.
 4. You can initiate the process by either **git push** and allowing it to execute automatically, or you have the option to manually activate it for an immediate outcome using workflow_dispatch event.
 
-## Inputs
+## Action Parameters
 
 | Input|	Description	| Default Value| Required |
 |-|-|-|-|
