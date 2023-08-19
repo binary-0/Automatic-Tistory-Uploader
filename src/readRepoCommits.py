@@ -13,14 +13,20 @@ def get_commits(_repoOwner, _repoName_Request, _git_access_token):
         "Accept": "application/vnd.github.v3+json"
     }
 
-    git_response = requests.get(api_url, headers=headers)
+    commitsList = []
+    commitPage = 1
+    while True:
+        params= {"page": commitPage}
+        git_response = requests.get(api_url, headers=headers, params=params)    
 
-    if git_response.status_code == 200:
-        commits = git_response.json()
-        print("Total commits:", len(commits))
+        if git_response.status_code == 200:
+            commits = git_response.json()
+            if not commits:
+                break #No more commits, search is done
+            commitsList.extend(commits)
+            commitPage = commitPage + 1
+        else:
+            print("Error")
+            break
 
-        # Print commit messages
-        return commits
-    else:
-        print("Error:", git_response.status_code)
-        return 0
+    return commitsList
