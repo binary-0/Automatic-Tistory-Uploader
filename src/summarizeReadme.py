@@ -3,6 +3,7 @@ import nltk
 from nltk.tokenize import sent_tokenize
 from nltk.corpus import stopwords
 from nltk.probability import FreqDist
+import re
 
 nltk.download('popular')
 
@@ -13,7 +14,9 @@ def read_markdown_file(file_path):
 
 def process_markdown(content):
     md = markdown.Markdown()
-    plain_text = md.convert(content)
+    html_text = md.convert(content)
+    plain_text = re.sub('<[^<]+?>', '', html_text)
+    
     return plain_text
 
 def generate_summary(text, num_sentences=3):

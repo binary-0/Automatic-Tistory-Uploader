@@ -47,8 +47,12 @@ def contents_generator():
     contents += '<blockquote data-ke-style="style3"><b>목차</b><br /><a href="#Readme">1. ReadMe. md</a><br /><a href="#Commithistory">2. Commit History</a></blockquote>'
     
     #Summarized Readme.md
-    contents += '<h2 id="Readme" style="padding: 5px; border-left: solid 20px #ffc6ff; border-bottom: solid 10px #ffc6ff; font-size: 25px; font-weight: bold;" data-ke-size="size26">ReadMe.md</h2>'
-    contents += getReadmeContents.convert_md_to_html(summarizedReadmeMD)
+    contents += '<h2 id="S_Readme" style="padding: 5px; border-left: solid 20px #ffc6ff; border-bottom: solid 10px #ffc6ff; font-size: 25px; font-weight: bold;" data-ke-size="size26">ReadMe.md</h2>'
+    contents += summarizedReadmeMD
+
+    #Plain Readme.md
+    contents += '<h2 id="P_Readme" style="padding: 5px; border-left: solid 20px #ffc6ff; border-bottom: solid 10px #ffc6ff; font-size: 25px; font-weight: bold;" data-ke-size="size26">ReadMe.md</h2>'
+    contents += getReadmeContents.convert_md_to_html(ReadmeMDFile)
 
     contents += '<hr>'
     contents += '<h2 id="Commithistory" style="padding: 5px; border-left: solid 20px #ffc6ff; border-bottom: solid 10px #ffc6ff; font-size: 25px; font-weight: bold;" data-ke-size="size26">Commit History</h2>'
