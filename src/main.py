@@ -43,11 +43,15 @@ def contents_generator():
     contents += repoName
     contents += '</h1>'
     
+    #Table content
+    contents += '<blockquote data-ke-style="style3">목차<br /><a href="#Readme">1. ReadMe. md</a><br /><a href="#Commithistory">2. Commit History</a></blockquote>'
+    
     #Summarized Readme.md
+    contents += '<h2 id="Readme" style="padding: 5px; border-left: solid 20px #ffc6ff; border-bottom: solid 10px #ffc6ff; font-size: 25px; font-weight: bold;" data-ke-size="size26">ReadMe.md</h2>'
     contents += getReadmeContents.convert_md_to_html(summarizedReadmeMD)
 
     contents += '<hr>'
-    contents += '<h1>Commit History</h1>'
+    contents += '<h2 id="Commithistory" style="padding: 5px; border-left: solid 20px #ffc6ff; border-bottom: solid 10px #ffc6ff; font-size: 25px; font-weight: bold;" data-ke-size="size26">Commit History</h2>'
 
     commits = readRepoCommits.get_commits(repoOwner, repoName, gitAccessToken)
     commitCounter = 1
