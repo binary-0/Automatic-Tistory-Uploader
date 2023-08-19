@@ -18,6 +18,7 @@ import summarizeReadme
 # repoOwner = arguments[4]
 # gitAccessToken = arguments[5]
 
+
 blogAccessToken = os.environ["INPUT_ACCESSTOKEN"]
 blogName = os.environ["INPUT_BLOGNAME"]
 Repo_Name = os.environ['GITHUB_REPOSITORY']
@@ -25,6 +26,7 @@ repoOwner = str(Repo_Name).split('/')[0]
 repoName = str(Repo_Name).split('/')[1]
 gitAccessToken = os.environ["INPUT_GITHUBTOKEN"]
 
+postTitleByRepoName = '깃허브 리포지토리 요약: ' + repoName
 
 global contents
 contents = ''
@@ -36,20 +38,28 @@ def contents_generator():
     MDfile_plainText = summarizeReadme.process_markdown(ReadmeMDFile)
     summarizedReadmeText = summarizeReadme.generate_summary(MDfile_plainText)
     summarizedReadmeMD = markdown.markdown(summarizedReadmeText)
+
+    #Summarized Readme.md
     contents += getReadmeContents.convert_md_to_html(summarizedReadmeMD)
-    #print(contents)
+
+    contents += '<hr>'
+    contents += '<h1>Commit History</h1>'
 
     commits = readRepoCommits.get_commits(repoOwner, repoName, gitAccessToken)
     commitCounter = 1
     
     for commit in commits:
         if commit["commit"]["message"] != '':
-            contents += '<p>'
-            contents += 'Commit message No. '
+            contents += '<a href = "'
+            contents += commit["html_url"]
+            contents += '">'
+            contents += 'No. '
             contents += str(commitCounter)
             contents += ': '
             contents += commit["commit"]["message"]
-            contents += '</p>'
+            contents += '</a>'
+            contents += '<br/>'
+            contents += '<br/>'
             commitCounter = commitCounter + 1
 
 def post_blog():
@@ -60,7 +70,7 @@ def post_blog():
         'access_token': blogAccessToken,
         'output': 'json',
         'blogName': blogName,
-        'title': repoName,
+        'title': postTitleByRepoName,
         'content': contents,
         'visibility': '3',
         'category': 'Anything',
@@ -81,7 +91,7 @@ def edit_post(postID):
         'output': 'json',
         'blogName': blogName,
         'postId': postID,
-        'title': repoName,
+        'title': postTitleByRepoName,
         'content': contents,
         'visibility': '3',
         'category': 'Anything',
@@ -114,7 +124,7 @@ def check_postExist():
 
         try:
             for item in result["tistory"]["item"]["posts"]:
-                if item["title"] == repoName:
+                if item["title"] == postTitleByRepoName:
                     print('Repository post already exists -> Edit')
                     repoExist = True
                     postID = item["id"]
