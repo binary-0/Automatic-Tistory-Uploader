@@ -1,7 +1,6 @@
 import requests
 
 def get_commits(_repoOwner, _repoName_Request, _git_access_token):
-    #Must be modified
     repoOwner = _repoOwner
     repoName_Request = _repoName_Request
     git_access_token = _git_access_token
@@ -28,5 +27,5 @@ def get_commits(_repoOwner, _repoName_Request, _git_access_token):
         else:
             print("Error")
             break
-
+        
     return commitsList

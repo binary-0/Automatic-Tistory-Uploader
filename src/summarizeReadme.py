@@ -4,22 +4,18 @@ from nltk.tokenize import sent_tokenize
 from nltk.corpus import stopwords
 from nltk.probability import FreqDist
 
-
 nltk.download('popular')
 
-# Read the Markdown file
 def read_markdown_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
     return content
 
-# Process Markdown content to plain text
 def process_markdown(content):
     md = markdown.Markdown()
     plain_text = md.convert(content)
     return plain_text
 
-# Generate a summary from plain text
 def generate_summary(text, num_sentences=3):
     sentences = sent_tokenize(text)
     words = nltk.word_tokenize(text)
