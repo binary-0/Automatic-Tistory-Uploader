@@ -79,7 +79,7 @@ jobs:
 > Click [here](https://tistory.github.io/document-tistory-apis/apis/v1/post/write.html) to learn more about these inputs
 
 ## Technical Flow
-![그림1](https://github.com/binary-0/Automatic-Tistory-Uploader/assets/50437138/fe5b3abe-ce2e-47fb-9f92-0055cda7dde1)
+![TechFlow](https://github.com/binary-0/Automatic-Tistory-Uploader/assets/50437138/b26f99aa-7b7b-4eba-a555-2fbcb1cb2425)
 
 ## Contributors
 
